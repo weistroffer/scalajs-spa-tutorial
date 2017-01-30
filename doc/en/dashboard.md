@@ -37,12 +37,12 @@ val Motd = ReactComponentB[ModelProxy[Pot[String]]]("Motd")
       proxy().renderPending(_ > 500, _ => <.p("Loading...")),
       proxy().renderFailed(ex => <.p("Failed to load")),
       proxy().render(m => <.p(m)),
-      Button(Button.Props(proxy.dispatch(UpdateMotd()), CommonStyle.danger), Icon.refresh, " Update")
+      Button(Button.Props(proxy.dispatchCB(UpdateMotd()), CommonStyle.danger), Icon.refresh, " Update")
     )
   }
   .componentDidMount(scope =>
     // update only if Motd is empty
-    Callback.ifTrue(scope.props.value.isEmpty, scope.props.dispatch(UpdateMotd()))
+    Callback.ifTrue(scope.props.value.isEmpty, scope.props.dispatchCB(UpdateMotd()))
   )
   .build
 ```
